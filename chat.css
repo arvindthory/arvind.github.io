@@ -1,0 +1,72 @@
+/* Chat page — extends styles.css, loaded after it */
+
+.chat-status{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:12.5px;color:var(--text-low);margin-bottom:26px;
+}
+.chat-status .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#ffb020;box-shadow:0 0 8px #ffb020;
+}
+
+.chat-shell{
+  max-width:720px;margin:0 auto 110px;
+  border:1px solid var(--panel-line);border-radius:22px;
+  background:var(--panel);overflow:hidden;
+  display:flex;flex-direction:column;height:min(560px, 62vh);
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+.chat-window{
+  flex:1;overflow-y:auto;padding:30px;
+  display:flex;flex-direction:column;gap:16px;
+}
+
+.msg{
+  max-width:76%;padding:13px 17px;border-radius:16px;
+  font-size:14.5px;line-height:1.55;
+}
+.msg.assistant{
+  align-self:flex-start;
+  background:rgba(112,140,255,.08);
+  border:1px solid var(--panel-line);
+  color:var(--text-hi);
+  border-bottom-left-radius:4px;
+}
+.msg.user{
+  align-self:flex-end;
+  background:var(--grad-brand);
+  color:#000121;font-weight:600;
+  border-bottom-right-radius:4px;
+}
+
+.chat-input-bar{
+  display:flex;gap:10px;padding:18px;
+  border-top:1px solid var(--panel-line);
+  background:rgba(255,255,255,.02);
+}
+.chat-input-bar input{
+  flex:1;background:transparent;
+  border:1px solid var(--panel-line);border-radius:12px;
+  padding:13px 16px;color:var(--text-hi);font-size:14.5px;outline:none;
+  transition:border-color .2s;
+}
+.chat-input-bar input:focus{border-color:var(--blue);}
+.chat-input-bar input::placeholder{color:var(--text-low);}
+.chat-send{
+  width:46px;height:46px;border-radius:12px;border:0;flex-shrink:0;
+  background:var(--red);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:transform .15s, background .2s;
+}
+.chat-send:hover{transform:scale(1.06);background:#e00000;}
+.chat-send svg{width:18px;height:18px;}
+
+.chat-foot-note{
+  text-align:center;font-size:13px;color:var(--text-low);
+  max-width:480px;margin:-80px auto 100px;
+}
+
+@media(max-width:640px){
+  .chat-shell{height:min(520px, 68vh);margin-bottom:80px;}
+  .chat-foot-note{margin-top:-40px;}
+}

@@ -1,0 +1,65 @@
+/* User / Login page — extends styles.css, loaded after it */
+
+.auth-card{
+  max-width:430px;margin:0 auto 60px;
+  border:1px solid var(--panel-line);border-radius:20px;
+  padding:38px;background:var(--panel);
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+.auth-tabs{
+  display:flex;gap:6px;margin-bottom:28px;
+  border:1px solid var(--panel-line);border-radius:12px;padding:4px;
+}
+.auth-tab{
+  flex:1;text-align:center;padding:10px;border-radius:9px;
+  font-size:13.5px;font-weight:600;color:var(--text-mid);
+  cursor:pointer;transition:all .2s;border:0;background:none;font-family:inherit;
+}
+.auth-tab.active{background:var(--grad-brand);color:#000121;}
+
+.auth-field{margin-bottom:16px;}
+.auth-field label{display:block;font-size:12.5px;color:var(--text-mid);margin-bottom:7px;}
+.auth-field input{
+  width:100%;padding:12px 14px;border-radius:10px;
+  border:1px solid var(--panel-line);background:rgba(255,255,255,.02);
+  color:var(--text-hi);font-size:14px;outline:none;transition:border-color .2s;
+}
+.auth-field input:focus{border-color:var(--blue);}
+.auth-field input::placeholder{color:var(--text-low);}
+
+.auth-submit{
+  width:100%;padding:13px;border-radius:10px;
+  border:1px solid var(--panel-line);color:var(--text-low);
+  font-size:14.5px;font-weight:600;text-align:center;margin-top:6px;
+  background:rgba(255,255,255,.02);cursor:not-allowed;
+}
+
+.auth-divider{
+  display:flex;align-items:center;gap:12px;margin:30px 0 22px;
+  color:var(--text-low);font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;
+}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--panel-line);}
+
+.waitlist-title{font-size:14.5px;font-weight:600;margin-bottom:6px;}
+.waitlist-sub{font-size:13px;color:var(--text-mid);margin-bottom:16px;line-height:1.5;}
+.waitlist-form{display:flex;gap:8px;}
+.waitlist-form input{
+  flex:1;padding:12px 14px;border-radius:10px;
+  border:1px solid var(--panel-line);background:transparent;
+  color:var(--text-hi);font-size:13.5px;outline:none;transition:border-color .2s;
+}
+.waitlist-form input:focus{border-color:var(--red);}
+.waitlist-form button{
+  padding:12px 18px;border-radius:10px;border:0;
+  background:var(--red);color:#fff;font-weight:600;font-size:13.5px;
+  cursor:pointer;flex-shrink:0;transition:background .2s;
+}
+.waitlist-form button:hover{background:#e00000;}
+.waitlist-confirm{
+  display:none;font-size:13.5px;color:#5be0c3;margin-top:12px;
+  border:1px solid rgba(91,224,195,.3);background:rgba(91,224,195,.06);
+  padding:10px 14px;border-radius:10px;
+}
+.waitlist-confirm.show{display:block;}
+.waitlist-form.hide{display:none;}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat — Shichi AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+<header id="siteHeader" class="scrolled">
+  <nav class="wrap">
+    <a href="index.html" class="brand-mark">
+      <div class="brand-glyph">S</div>
+      <div class="brand">SHICHI <span>Ai</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#customize">Customizable</a></li>
+      <li><a href="index.html#shichi21">Shichi 21</a></li>
+      <li><a href="index.html#marketplace">Market Place</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="user.html" class="login-link">User / Login</a>
+      <a href="user.html"><div class="avatar"></div></a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a href="index.html" class="back-home">← Back to Shichi</a>
+    <h1>Chat with Shichi</h1>
+    <p>This is the interface preview. Shichi's reasoning engine — and Shichi 21's model routing — plug in here once the backend is wired up.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="chat-status"><span class="dot"></span> LLM not connected — showing interface preview</div>
+
+  <div class="chat-shell">
+    <div class="chat-window" id="chatWindow">
+      <div class="msg assistant">Hi, I'm Shichi. My model isn't wired up yet, so I can't actually think or act on anything right now — but this is exactly how our conversation will look once I am.</div>
+    </div>
+    <form class="chat-input-bar" id="chatForm">
+      <input type="text" id="chatInput" placeholder="Message Shichi …" autocomplete="off">
+      <button type="submit" class="chat-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <p class="chat-foot-note">Backend stub lives in <strong>chat.py</strong> — replace the placeholder reply in <code>chat_reply()</code> with a real call to your model to bring this to life.</p>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="index.html" class="brand-mark">
+          <div class="brand-glyph">S</div>
+          <div class="brand">SHICHI <span>Ai</span></div>
+        </a>
+        <p>The world's first fully customizable AI — configured by you, acting on your behalf.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="index.html#about">About</a>
+          <a href="index.html#customize">Customizable</a>
+          <a href="index.html#shichi21">Shichi 21</a>
+          <a href="index.html#marketplace">Market Place</a>
+          <a href="index.html#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h5>App</h5>
+          <a href="chat.html">Chat</a>
+          <a href="user.html">User / Login</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Shichi AI. All rights reserved.</span>
+      <span>Made for people who want an AI, not an app.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="chat.js"></script>
+</body>
+</html>

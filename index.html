@@ -3,376 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arvind — Coming Soon</title>
-<meta name="description" content="Arvind's site is being built. Coming soon.">
+<title>Shichi AI — The World's First Fully Customizable AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0b0e13;
-    --surface:#12161d;
-    --line:#1f2530;
-    --text:#eef1f5;
-    --muted:#6b7280;
-    --accent:#3fe8c4;
-    --accent-dim:#3fe8c422;
-    --sans:'Space Grotesk', sans-serif;
-    --mono:'JetBrains Mono', monospace;
-  }
-
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html,body{ height:100%; }
-
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--sans);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    padding:24px;
-    position:relative;
-    overflow:hidden;
-  }
-
-  a{ color:inherit; }
-
-  /* faint grid backdrop */
-  .grid-bg{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:64px 64px;
-    opacity:0.35;
-    mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
-  }
-
-  .glow{
-    position:fixed;
-    top:20%; left:50%;
-    width:900px; height:500px;
-    transform:translateX(-50%);
-    background:radial-gradient(ellipse, var(--accent-dim), transparent 70%);
-    z-index:0;
-    pointer-events:none;
-  }
-
-  .stage{
-    position:relative;
-    z-index:2;
-    width:100%;
-    max-width:640px;
-  }
-
-  /* ---------- terminal boot block ---------- */
-  .terminal{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 30px 80px -20px rgba(0,0,0,0.6);
-  }
-
-  .term-bar{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:12px 16px;
-    border-bottom:1px solid var(--line);
-  }
-
-  .dot{ width:10px; height:10px; border-radius:50%; background:#333944; }
-
-  .term-title{
-    margin-left:8px;
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--muted);
-    letter-spacing:0.05em;
-  }
-
-  .term-body{
-    padding:22px 20px 26px;
-    font-family:var(--mono);
-    font-size:0.85rem;
-    color:var(--muted);
-    min-height:150px;
-  }
-
-  .term-body .line{
-    opacity:0;
-    margin-bottom:8px;
-    animation:appear 0.3s forwards;
-  }
-
-  .term-body .line .ok{ color:var(--accent); }
-  .term-body .line .path{ color:var(--text); }
-
-  @keyframes appear{ to{ opacity:1; } }
-
-  .cursor-line{
-    display:inline-block;
-    width:8px; height:14px;
-    background:var(--accent);
-    vertical-align:middle;
-    margin-left:4px;
-    animation:blink 0.9s steps(1) infinite;
-  }
-
-  @keyframes blink{ 50%{ opacity:0; } }
-
-  /* ---------- reveal content (hidden until boot finishes) ---------- */
-  .reveal{
-    margin-top:40px;
-    opacity:0;
-    transform:translateY(16px);
-    transition:opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.show{ opacity:1; transform:translateY(0); }
-
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:0.75rem;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:18px;
-  }
-
-  .eyebrow::before{
-    content:'';
-    width:7px; height:7px;
-    border-radius:50%;
-    background:var(--accent);
-    box-shadow:0 0 10px var(--accent);
-    animation:pulse 2s infinite ease-in-out;
-  }
-
-  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
-
-  h1{
-    font-size:clamp(2.6rem, 8vw, 4.4rem);
-    font-weight:700;
-    line-height:1;
-    letter-spacing:-0.02em;
-  }
-
-  h1 span{ color:var(--accent); }
-
-  p.sub{
-    margin-top:18px;
-    color:var(--muted);
-    font-size:1.02rem;
-    max-width:46ch;
-    line-height:1.6;
-  }
-
-  /* progress bar */
-  .progress-wrap{
-    margin-top:32px;
-  }
-
-  .progress-labels{
-    display:flex;
-    justify-content:space-between;
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--muted);
-    margin-bottom:8px;
-    text-transform:uppercase;
-    letter-spacing:0.05em;
-  }
-
-  .progress-track{
-    height:6px;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:99px;
-    overflow:hidden;
-  }
-
-  .progress-fill{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg, var(--accent), #2bb8a0);
-    border-radius:99px;
-    transition:width 1.6s cubic-bezier(.4,0,.2,1);
-  }
-
-  /* notify form */
-  .notify{
-    margin-top:36px;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .notify input{
-    flex:1;
-    min-width:200px;
-    background:var(--surface);
-    border:1px solid var(--line);
-    color:var(--text);
-    padding:14px 16px;
-    border-radius:8px;
-    font-family:var(--sans);
-    font-size:0.92rem;
-    outline:none;
-    transition:border-color 0.2s ease;
-  }
-
-  .notify input:focus{ border-color:var(--accent); }
-  .notify input::placeholder{ color:var(--muted); }
-
-  .notify button{
-    padding:14px 24px;
-    border-radius:8px;
-    border:1px solid var(--accent);
-    background:var(--accent);
-    color:#0b0e13;
-    font-family:var(--sans);
-    font-weight:600;
-    font-size:0.92rem;
-    cursor:pointer;
-    transition:transform 0.2s ease, opacity 0.2s ease;
-  }
-
-  .notify button:hover{ transform:translateY(-2px); }
-
-  .notify-msg{
-    margin-top:12px;
-    font-family:var(--mono);
-    font-size:0.78rem;
-    color:var(--accent);
-    min-height:1em;
-  }
-
-  .socials{
-    margin-top:44px;
-    display:flex;
-    gap:26px;
-    font-family:var(--mono);
-    font-size:0.8rem;
-    color:var(--muted);
-  }
-
-  .socials a{ transition:color 0.2s ease; }
-  .socials a:hover{ color:var(--accent); }
-
-  footer{
-    margin-top:50px;
-    font-family:var(--mono);
-    font-size:0.72rem;
-    color:var(--muted);
-    opacity:0.7;
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="grid-bg"></div>
-<div class="glow"></div>
-
-<div class="stage">
-
-  <div class="terminal">
-    <div class="term-bar">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="term-title">arvindthory.com — build log</span>
+<header id="siteHeader">
+  <nav class="wrap">
+    <a href="index.html" class="brand-mark">
+      <div class="brand-glyph">S</div>
+      <div class="brand">SHICHI <span>Ai</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#customize">Customizable</a></li>
+      <li><a href="#shichi21">Shichi 21</a></li>
+      <li><a href="#marketplace">Market Place</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="user.html" class="login-link">User / Login</a>
+      <a href="user.html"><div class="avatar"></div></a>
     </div>
-    <div class="term-body" id="termBody"></div>
-  </div>
+  </nav>
+</header>
 
-  <div class="reveal" id="revealBlock">
-    <div class="eyebrow">Site under construction</div>
-    <h1>Something's<br><span>brewing.</span></h1>
-    <p class="sub">I'm building arvindthory.com from the ground up — projects, writing, and everything I'm working on. It'll be live soon.</p>
-
-    <div class="progress-wrap">
-      <div class="progress-labels">
-        <span>Progress</span>
-        <span id="progressPct">0%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-    </div>
-
-    <form class="notify" id="notifyForm">
-      <input type="email" id="notifyEmail" placeholder="you@email.com" required>
-      <button type="submit">Notify me</button>
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">World First Fully Customizable Ai</div>
+    <h1>SHICHI</h1>
+    <form class="search-pill" action="chat.html" method="GET">
+      <input type="text" name="q" placeholder="Search …">
+      <button class="search-btn" type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg>
+      </button>
     </form>
-    <div class="notify-msg" id="notifyMsg"></div>
+  </div>
+</section>
 
-    <div class="socials">
-      <a href="https://github.com/arvindthory" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="mailto:arvind@arvindthory.com">Email ↗</a>
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="about-statement">Shichi isn't <em>another Siri</em>. It's a personal intelligence system that learns how you work — and acts on it.</p>
+      <p class="about-sub">Most assistants answer questions. Shichi is built to run your errands inside the apps you already use — and to keep adapting to your habits instead of giving everyone the same generic response.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-top">
+          <h4>Chat</h4>
+          <span class="pillar-status on">Live now</span>
+        </div>
+        <p>Shichi starts as a chat app. This is where you set the rules, connect your apps, and teach it how you work.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-top">
+          <h4>Customization</h4>
+          <span class="pillar-status">Core to everything</span>
+        </div>
+        <p>Not a theme picker. Real, granular permissions over what Shichi is allowed to do on your behalf — app by app, action by action.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="customize" id="customize">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Customizable</span>
+      <h2>Customization means what it does, not just what it says.</h2>
+      <p>Changing a tone slider isn't customization — it's a costume. Real customization changes what your AI is <em>allowed to do</em> inside the apps you already use.</p>
     </div>
 
-    <footer>© <span id="year"></span> Arvind — built in public.</footer>
-  </div>
+    <div class="compare">
+      <div class="compare-card dim">
+        <div class="compare-label">Most AI customization</div>
+        <h4>Style, not substance</h4>
+        <ul class="compare-list">
+          <li>Pick a personality — "friendly," "formal," "sarcastic"</li>
+          <li>Choose an avatar and a color theme</li>
+          <li>Set a preferred tone of voice</li>
+          <li>Still can't touch your email, calendar, or files</li>
+        </ul>
+      </div>
+      <div class="compare-card hi">
+        <div class="compare-label">Shichi customization</div>
+        <h4>Configured to act</h4>
+        <ul class="compare-list">
+          <li><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Send the actual email, not a draft you copy-paste</li>
+          <li><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Book the flight, update the sheet, file the ticket</li>
+          <li><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Grant per-app, per-action permissions you control</li>
+          <li><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Package the whole setup and reuse it anywhere</li>
+        </ul>
+      </div>
+    </div>
 
-</div>
+    <div class="feature-strip">
+      <div class="feature-card">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+        <h5>One sentence, many actions</h5>
+        <p>"Set an alarm, message Mom, and clear my WhatsApp junk" — three actions, one sentence, no app-switching.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c4-2 8-6 8-11a8 8 0 0 0-16 0c0 5 4 9 8 11z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h5>Learns how you talk</h5>
+        <p>Teach it your email greeting once. It reuses your voice after that — not a generic template.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/></svg></div>
+        <h5>Local or cloud, your call</h5>
+        <p>Keep sensitive tasks on-device, or opt into cloud power. You choose per task, not once at signup.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="#708CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 3v9l6 3"/></svg></div>
+        <h5>Works with the Wi-Fi off</h5>
+        <p>Reminders, alarms, calls, and file search keep running with no connection at all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s21" id="shichi21">
+  <div class="wrap">
+    <div class="s21-inner">
+      <div class="s21-grid">
+        <div class="s21-copy">
+          <div class="badge-pill"><span class="dot"></span> Coming soon — the next tier</div>
+          <h2>Shichi 21: the AI that <em>manages other AIs.</em></h2>
+          <p>Describe the AI you want, in plain English, and Shichi 21 builds it — no code. It's the highest tier of customization we offer: full control over what it does, how it behaves, and which model it calls in when a job needs a specialist.</p>
+          <ul class="s21-feats">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multi-model delegation — routes writing to one model, code to another, and hands you back a single finished answer</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No-code AI builder — describe behavior and permissions in plain language, it configures itself</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Build and sell your own AI apps on the Marketplace — no engineering team required</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Talk to it or video call it — full voice and video, not just text</li>
+          </ul>
+          <a href="user.html" class="s21-cta">Join the Shichi 21 waitlist</a>
+          <p class="s21-note">In development — not available in the current build.</p>
+        </div>
+
+        <div class="s21-visual">
+          <div class="s21-flow">
+            <div class="s21-row">
+              <div class="s21-chip"><strong>Writing</strong>routed to a language specialist</div>
+              <div class="s21-chip"><strong>Code</strong>routed to a coding specialist</div>
+              <div class="s21-chip"><strong>Visual</strong>routed to a vision specialist</div>
+            </div>
+            <svg class="s21-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="s21-hub">
+              <strong>Shichi 21</strong>
+              <span>decides · delegates · delivers</span>
+            </div>
+            <svg class="s21-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="s21-out">One finished answer, back to you</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="marketplace" id="marketplace">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Market Place</span>
+      <h2>Build a configuration once. Let anyone run it.</h2>
+      <p>Every customized Shichi — its permissions, its personality, its connected actions — can be packaged and listed for others to install, fork, or buy. List what you build and keep the majority of every sale.</p>
+    </div>
+
+    <div class="market-grid">
+      <div class="listing">
+        <div class="listing-thumb g1"></div>
+        <div class="listing-body">
+          <h4>Inbox Zero Agent</h4>
+          <div class="by">by @mira.codes</div>
+          <div class="listing-meta"><span>2.1k installs</span><span class="listing-price">$4/mo</span></div>
+        </div>
+      </div>
+      <div class="listing">
+        <div class="listing-thumb g2"></div>
+        <div class="listing-body">
+          <h4>Trip Planner Pro</h4>
+          <div class="by">by @arv.builds</div>
+          <div class="listing-meta"><span>860 installs</span><span class="listing-price">Free</span></div>
+        </div>
+      </div>
+      <div class="listing">
+        <div class="listing-thumb g3"></div>
+        <div class="listing-body">
+          <h4>Founder's Ops Stack</h4>
+          <div class="by">by @teamforge</div>
+          <div class="listing-meta"><span>430 installs</span><span class="listing-price">$12/mo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow">Pricing</span>
+      <h2>Start free. Pay for the actions you actually use.</h2>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amt">$0<span>/mo</span></div>
+        <p class="price-desc">Talk to Shichi and try customization on a single connected app.</p>
+        <ul class="price-feats">
+          <li>1 connected app</li>
+          <li>Standard response speed</li>
+          <li>Browse the Marketplace</li>
+        </ul>
+        <a href="#" class="price-cta">Get started</a>
+      </div>
+      <div class="price-card feat">
+        <div class="price-tier">Pro</div>
+        <div class="price-amt">$20<span>/mo</span></div>
+        <p class="price-desc">Full action execution across your apps, with saved configurations.</p>
+        <ul class="price-feats">
+          <li>Unlimited connected apps</li>
+          <li>Priority response speed</li>
+          <li>Save & reuse configurations</li>
+          <li>Install from the Marketplace</li>
+        </ul>
+        <a href="#" class="price-cta">Upgrade to Pro</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Studio</div>
+        <div class="price-amt">$49<span>/mo</span></div>
+        <p class="price-desc">For builders who want to package and sell their own configurations.</p>
+        <ul class="price-feats">
+          <li>Everything in Pro</li>
+          <li>List on the Marketplace</li>
+          <li>Revenue on every install</li>
+          <li>Priority access when Shichi 21 opens up</li>
+        </ul>
+        <a href="#" class="price-cta">Become a creator</a>
+      </div>
+    </div>
+
+    <div class="pricing-note">Want the AI that manages other AIs? <a href="#shichi21">Shichi 21 is coming — join the waitlist ↑</a></div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Your AI. Your rules. Your revenue.</h2>
+    <p>Start on chat today — customize it your way from day one.</p>
+    <a href="chat.html" class="cta-btn">Try Shichi free</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="index.html" class="brand-mark">
+          <div class="brand-glyph">S</div>
+          <div class="brand">SHICHI <span>Ai</span></div>
+        </a>
+        <p>The world's first fully customizable AI — configured by you, acting on your behalf.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#about">About</a>
+          <a href="#customize">Customizable</a>
+          <a href="#shichi21">Shichi 21</a>
+          <a href="#marketplace">Market Place</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h5>App</h5>
+          <a href="chat.html">Chat</a>
+          <a href="user.html">User / Login</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Shichi AI. All rights reserved.</span>
+      <span>Made for people who want an AI, not an app.</span>
+    </div>
+  </div>
+</footer>
 
 <script>
-  const bootLines = [
-    "$ initializing arvindthory.com <span class='ok'>[ok]</span>",
-    "$ loading design system <span class='ok'>[ok]</span>",
-    "$ writing pages <span class='path'>./about ./work ./contact</span>",
-    "$ status: <span class='ok'>almost there...</span>"
-  ];
-
-  const termBody = document.getElementById('termBody');
-  let i = 0;
-
-  function typeNextLine(){
-    if(i < bootLines.length){
-      const el = document.createElement('div');
-      el.className = 'line';
-      el.style.animationDelay = '0s';
-      el.innerHTML = bootLines[i];
-      termBody.appendChild(el);
-      i++;
-      setTimeout(typeNextLine, 480);
-    } else {
-      const cursorEl = document.createElement('span');
-      cursorEl.className = 'cursor-line';
-      termBody.appendChild(cursorEl);
-      setTimeout(revealContent, 500);
-    }
-  }
-
-  function revealContent(){
-    document.getElementById('revealBlock').classList.add('show');
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        const pct = 72; // adjust this number as your real progress changes
-        document.getElementById('progressFill').style.width = pct + '%';
-        document.getElementById('progressPct').textContent = pct + '%';
-      }, 200);
-    });
-  }
-
-  setTimeout(typeNextLine, 300);
-
-  // notify form (front-end only demo — see notes below to wire it up for real)
-  document.getElementById('notifyForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const msg = document.getElementById('notifyMsg');
-    msg.textContent = "$ saved — I'll email you when it's live.";
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
   });
-
-  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
 </body>

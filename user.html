@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User / Login — Shichi AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="user.css">
+</head>
+<body>
+
+<header id="siteHeader" class="scrolled">
+  <nav class="wrap">
+    <a href="index.html" class="brand-mark">
+      <div class="brand-glyph">S</div>
+      <div class="brand">SHICHI <span>Ai</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#customize">Customizable</a></li>
+      <li><a href="index.html#shichi21">Shichi 21</a></li>
+      <li><a href="index.html#marketplace">Market Place</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="user.html" class="login-link">User / Login</a>
+      <a href="user.html"><div class="avatar"></div></a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a href="index.html" class="back-home">← Back to Shichi</a>
+    <h1>User ID — coming soon</h1>
+    <p>Accounts, sync, and login launch alongside Shichi's Stage 1 release. Here's a preview of what's coming.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button type="button" class="auth-tab active" id="tabLogin">Log in</button>
+      <button type="button" class="auth-tab" id="tabSignup">Sign up</button>
+    </div>
+
+    <form onsubmit="return false;">
+      <div class="auth-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="auth-field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••">
+      </div>
+      <div class="auth-submit" id="authSubmit">Log in — coming soon</div>
+    </form>
+
+    <div class="auth-divider">or get notified</div>
+
+    <div class="waitlist-title">Be first to know when accounts open</div>
+    <p class="waitlist-sub">Leave your email and we'll let you know the moment Shichi's Stage 1 login is live.</p>
+    <form class="waitlist-form" id="waitlistForm">
+      <input type="email" id="waitlistEmail" placeholder="you@example.com" required>
+      <button type="submit">Notify me</button>
+    </form>
+    <div class="waitlist-confirm" id="waitlistConfirm">You're on the list — we'll email you when it's ready.</div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="index.html" class="brand-mark">
+          <div class="brand-glyph">S</div>
+          <div class="brand">SHICHI <span>Ai</span></div>
+        </a>
+        <p>The world's first fully customizable AI — configured by you, acting on your behalf.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="index.html#about">About</a>
+          <a href="index.html#customize">Customizable</a>
+          <a href="index.html#shichi21">Shichi 21</a>
+          <a href="index.html#marketplace">Market Place</a>
+          <a href="index.html#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h5>App</h5>
+          <a href="chat.html">Chat</a>
+          <a href="user.html">User / Login</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Shichi AI. All rights reserved.</span>
+      <span>Made for people who want an AI, not an app.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="user.js"></script>
+</body>
+</html>
